@@ -1,0 +1,51 @@
+1. Looking at the top errors printed by get_top_misclassified, name two ways you would modify your classifier to improve accuracy (it could be features, tokenization, or something else.)
+    1.For example, there are many words which are irrelevant to the detection of sentiment : that, the, a, one, I, he, they, etc.
+      Which means that if these words are removed from the token_list, then the classifier will focus more on the words which are relevant to the detection of sentiment
+    2.Increase the size of pos_words and neg_words to increase the accuracy of feature pos_word_frequency and neg_word_frequency.
+    3.Change pos_words and neg_words to dicts. Each word have a value of positive value or negative value instead of just counting 1.
+    4.In token_pair_features, we put some relevant words together instead of just put the near words together.
+
+
+
+
+
+2. Implement one of the above methods. How did it affect the results?
+    Use the following tokenize to replace the tokenize function in a2.py.
+            def tokenize(doc, keep_internal_punct=False):
+                 remove_list = ["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "as",
+                           "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "could",
+                           "did", "do", "does", "doing", "down", "during", "each", "few", "for", "from", "further", "had",
+                           "has", "have", "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself",
+                           "him", "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is",
+                           "it", "it's", "its", "itself", "let's", "me", "more", "most", "my", "myself", "nor", "of", "on",
+                           "once", "only", "or", "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same",
+                           "she", "she'd", "she'll", "she's", "should", "so", "some", "such", "than", "that", "that's", "the",
+                           "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they", "they'd",
+                           "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until", "up",
+                           "very", "was", "we", "we'd", "we'll", "we're", "we've", "were", "what", "what's", "when", "when's",
+                           "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "would", "you",
+                           "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves"]
+
+                      #reference website: https://kb.yoast.com/kb/list-stop-words/
+
+                if not keep_internal_punct:
+                    not_filtered_list = re.sub(r'\W', ' ', doc.lower()).split()
+                else:
+                    # return np.array(re.split(r'[\s]', doc.lower()))
+                    not_filtered_list = re.findall(r'\w\S*\w|\w+', doc.lower())
+                final_list = []
+                for word in not_filtered_list:
+                    if word.lower() not in remove_list:
+                        final_list.append(word)
+                return np.array(final_list)
+
+
+    before:
+    best cross-validation result:
+    {'punct': True, 'features': [<function token_pair_features at 0x0000025458F8B2F0>, <function lexicon_features at 0x0000025458F8B378>], 'min_freq': 2, 'accuracy': 0.7700000000000001}
+
+    after:
+    best cross-validation result:
+    {'punct': False, 'features': [<function token_features at 0x000002700D2AB268>, <function token_pair_features at 0x000002700D2AB2F0>, <function lexicon_features at 0x000002700D2AB378>], 'min_freq': 2, 'accuracy': 0.7825}
+
+    we can find that we improved best cross-validation result from 0.7700 to 0.7825.

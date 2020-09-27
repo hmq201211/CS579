@@ -1,0 +1,17 @@
+This project contains 4 .py files
+
+collect.py file can collect user info for the user screen_names which is in the ./shared/candidates.txt file.
+And then save each user's info into ./shared/cluster_data/(each user screen_name).txt. Collect file can also collect
+raw_tweets and labels for the gender classifer. Gender label names come from http://www2.census.gov/topics/genealogy/1990surnames.
+And raw_tweets come from the tweets which match the names in the gender label names. Then all the raw_tweets and labels will be saved
+into ./shared/classifer_data/.
+
+cluster.py file can use girvan_newman recursive approach (given in the lecture) to cluster the users and their friends.
+and save the result to ./shared/summary_data/cluster_result.txt.
+
+classify.py file can use Logistic Regression to classify the tweets to their gender.
+First it runs several times of cross-fold-validation to find the best feature option
+Then it use this best option to tokenize the data and train the model and then make prediction.
+And save the result to ./shared/summary_data/classify_result.txt.
+
+summarize.py file can read all the *.txt files and draw a conclusion and save the conclusion to ./summary.txt.

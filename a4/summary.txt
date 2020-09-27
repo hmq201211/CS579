@@ -1,0 +1,13 @@
+Number of users collected:
+13 users and their 23189 friends
+Number of messages collected:
+5000 tweets
+Number of communities discovered:
+There are 3 clusters discovered.
+Average number of users per community:
+The average user count per community is 21.0.
+Number of instances per class found:
+Counter({'0': 38, '1': 12})
+One example from each class:
+male_example {'tweet_text': 'This man is hilarious when he’s angry', 'model_predicted': '0', 'true_label': '0'}
+female_example {'tweet_text': 'cheers to officially being done with college! here’s to one final week in the berry ❤️ @ Pour Richards Tavern https://t.co/1dl0AGFDR8', 'model_predicted': '1', 'true_label': '1'}
